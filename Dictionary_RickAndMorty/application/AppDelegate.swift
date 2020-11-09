@@ -11,10 +11,26 @@ import CoreData
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        guard #available(iOS 13.0, *) else {
+            let window = UIWindow(frame: UIScreen.main.bounds)
+            
+            let homeTab = HomeViewController()
+            homeTab.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 0)
+            
+            let favTab = FavoriteViewController()
+            favTab.tabBarItem = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 1)
+            
+            let rootViewController = UITabBarController()
+            rootViewController.viewControllers = [homeTab, favTab]
+            window.rootViewController = UINavigationController(rootViewController: rootViewController)
+            
+            window.makeKeyAndVisible()
+            
+            return true
+        }
+        
         return true
     }
 
